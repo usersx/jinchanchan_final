@@ -16,7 +16,7 @@ Hero::Hero(const std::vector<float>& health, const std::vector<float>& physicalA
     _mana(mana), _attackSpeed(attackSpeed), _level(level) 
 {
     int index = static_cast<int>(_level);
-    // ¸üĞÂÉúÃüÖµºÍÎïÀí¹¥»÷Á¦
+    // æ›´æ–°ç”Ÿå‘½å€¼å’Œç‰©ç†æ”»å‡»åŠ›
     _currentHealth = _health[index];
     _currentPhysicalAttack = _physicalAttack[index];
     _mana = _initialMana;
@@ -54,28 +54,28 @@ bool Hero::init()
 {
     
     
-    this->setBloodAndMana();//ÉèÖÃÑªÌõÍ¼Æ¬
+    this->setBloodAndMana();//è®¾ç½®è¡€æ¡å›¾ç‰‡
 
-    this->setIsDead(false);//³õÊ¼»¯Ê±¾ù´æ»î
+    this->setIsDead(false);//åˆå§‹åŒ–æ—¶å‡å­˜æ´»
 
-    this->setIsOnTheField(false);//³õÊ¼»¯Ê±¾ù²»ÔÚ³¡ÉÏ
+    this->setIsOnTheField(false);//åˆå§‹åŒ–æ—¶å‡ä¸åœ¨åœºä¸Š
 
     this->setTeam(0);
 
     this->setenemyTeam(1);
 
-    //ÅĞ¶ÏÊÇ²»ÊÇAIÕóÓªµÄ Èç¹ûÊÇµÄ»° ²»ÓÃcreate
+    //åˆ¤æ–­æ˜¯ä¸æ˜¯AIé˜µè¥çš„ å¦‚æœæ˜¯çš„è¯ ä¸ç”¨create
 
     _bar = EquipmentBarforHero::create();
     this->addChild(_bar);
 
-    //setLocalZOrder(2);//´Ë´¦ÊÇäÖÈ¾Ë³Ğò ÇëÔ¤ÉèËùÓĞÓ¢ĞÛµÄäÖÈ¾Ë³Ğò ·ñÔòºóÌí¼ÓµÄ½áµã»áÔÚ¾É½ÚµãÖ®Ç°±»äÖÈ¾ ¿ÉÄÜ»á°ÑÍ¼Æ¬¿¨Ã»
+    //setLocalZOrder(2);//æ­¤å¤„æ˜¯æ¸²æŸ“é¡ºåº è¯·é¢„è®¾æ‰€æœ‰è‹±é›„çš„æ¸²æŸ“é¡ºåº å¦åˆ™åæ·»åŠ çš„ç»“ç‚¹ä¼šåœ¨æ—§èŠ‚ç‚¹ä¹‹å‰è¢«æ¸²æŸ“ å¯èƒ½ä¼šæŠŠå›¾ç‰‡å¡æ²¡
     
     return true;
 }
-//¸ù¾İ×ø±ê·ÅÓ¢ĞÛ
+//æ ¹æ®åæ ‡æ”¾è‹±é›„
 void Hero::put_on_field(std::pair<int, int> pair_position) {
-    //¼ÆËã³¡ÉÏÎ»ÖÃ
+    //è®¡ç®—åœºä¸Šä½ç½®
     //Director::getInstance()->getRunningScene()->addChild(this);
     setIsOnTheField(true);
     Vec2 position = Vec2(220+square_width * (pair_position.first - 1), 180+ square_height * (pair_position.second - 1));
@@ -91,7 +91,7 @@ void Hero::put_on_field(std::pair<int, int> pair_position) {
 
 
 bool Hero::take_equip(Equipment* equip) {
-    //µ÷Õû´óĞ¡ ×¢Òâ¸ü»»½Úµã
+    //è°ƒæ•´å¤§å° æ³¨æ„æ›´æ¢èŠ‚ç‚¹
    // int number = equip->getEquipNumber();
     //_power += equipment_power[number];
     int result = _bar->auto_equip(equip);
@@ -119,11 +119,11 @@ bool Hero::unload_equip() {
 //
 //        hero->autorelease();
 //
-//        hero->setBloodAndMana();//ÉèÖÃÑªÌõÍ¼Æ¬
+//        hero->setBloodAndMana();//è®¾ç½®è¡€æ¡å›¾ç‰‡
 //
-//        hero->setIsDead(false);//³õÊ¼»¯Ê±¾ù´æ»î
+//        hero->setIsDead(false);//åˆå§‹åŒ–æ—¶å‡å­˜æ´»
 //
-//        hero->setIsOnTheField(false);//³õÊ¼»¯Ê±¾ù²»ÔÚ³¡ÉÏ
+//        hero->setIsOnTheField(false);//åˆå§‹åŒ–æ—¶å‡ä¸åœ¨åœºä¸Š
 //
 //        return hero;
 //    }
@@ -142,7 +142,7 @@ void Hero::upgrade()
 
 void Hero::updateAttributes() {
     int index = static_cast<int>(_level);
-    // ¸üĞÂÉúÃüÖµºÍÎïÀí¹¥»÷Á¦
+    // æ›´æ–°ç”Ÿå‘½å€¼å’Œç‰©ç†æ”»å‡»åŠ›
     _currentHealth = _health[index];
     _currentPhysicalAttack = _physicalAttack[index];
     _mana = _initialMana;
@@ -156,16 +156,22 @@ void Hero::updateAttributes() {
     this->setIsDead(false);
     this->setOpacity(255);
     this->getBloodBar()->setPercentage(100);
-    // ÆäËûÊôĞÔ±£³Ö²»±ä
+    // å…¶ä»–å±æ€§ä¿æŒä¸å˜
+
+    //å­å¼¹å¯èƒ½ä¼šè¿˜å­˜åœ¨ æŠŠå­å¼¹æ¸…å¹²å‡€
+    auto child = getChildByName("bullet");
+    if (child) {
+        child->removeFromParent();
+    }
 }
 
 void Hero::setBloodAndMana()
 {
-    //ÑªÌõ³õÊ¼»¯
+    //è¡€æ¡åˆå§‹åŒ–
     bloodBar = HealthBar::create("Display2.png", "Display1.png", 100.0f, 20.0f);
-    //À¶Ìõ³õÊ¼»¯
+    //è“æ¡åˆå§‹åŒ–
     manaBar = HealthBar::create("Display4.png", "Display3.png", 100.0f, 20.0f);
-    //ÑªÌõ¶¨Î»
+    //è¡€æ¡å®šä½
     if (bloodBar) {
         bloodBar->setPosition(Vec2(0, this->getContentSize().height + 5.0f));
         this->addChild(bloodBar);
@@ -192,7 +198,7 @@ Hero* Hero::getNextEnemyHero()
 
         for (Hero* enemyHero : heroList)
         {
-            //ÔÚ³¡ÉÏ²¢´æ»îÔÙËÑË÷
+            //åœ¨åœºä¸Šå¹¶å­˜æ´»å†æœç´¢
             if (this->getIsOnTheField()==true&& enemyHero->getIsOnTheField()==true && enemyHero->getIsDead() == false) {
                 float newDistance = getDistance(enemyHero);
 
@@ -213,7 +219,7 @@ Hero* Hero::getNextEnemyHero()
 
 void Hero::update(float dt) {
 
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
         if (isInRange(target)) {
             this->_initialMana += 10;
@@ -221,16 +227,16 @@ void Hero::update(float dt) {
             if (this->_initialMana >= this->_mana)
                 castSkill();
             else
-                attackTarget(target); // Èç¹ûÔÚ¹¥»÷·¶Î§ÄÚ£¬Ôò¹¥»÷
+                attackTarget(target); // å¦‚æœåœ¨æ”»å‡»èŒƒå›´å†…ï¼Œåˆ™æ”»å‡»
         }
         else {
-            moveToTarget(target); // ·ñÔò£¬ÒÆ¶¯ÏòÄ¿±ê
+            moveToTarget(target); // å¦åˆ™ï¼Œç§»åŠ¨å‘ç›®æ ‡
         }
     }
 }
 
 float Hero::getDistance(Hero* actor)
-{//¼ÆËã¾àÀë
+{//è®¡ç®—è·ç¦»
     if (actor == nullptr) {
         return 0;
     }
@@ -240,40 +246,40 @@ float Hero::getDistance(Hero* actor)
     return distance;
 }
 void Hero::receiveMagicDamage(float damage) {
-    // ¼ÆËãÊµ¼ÊÉËº¦£¬¿¼ÂÇÄ§¿¹µÈÒòËØ
+    // è®¡ç®—å®é™…ä¼¤å®³ï¼Œè€ƒè™‘é­”æŠ—ç­‰å› ç´ 
     float actualDamage = damage * (1 - _magicResist / 100.0f);
 
-    // ¼õÉÙÉúÃüÖµ
+    // å‡å°‘ç”Ÿå‘½å€¼
     _currentHealth -= actualDamage;
     if (_currentHealth <= 0) {
-        onDeath(); // ´¦ÀíËÀÍöÂß¼­
+        onDeath(); // å¤„ç†æ­»äº¡é€»è¾‘
     }
 }
 void Hero::moveToTarget(Hero* target) {
     //if (target != nullptr) {
-    //    // »ñÈ¡Ä¿±êÎ»ÖÃºÍµ±Ç°Î»ÖÃ
+    //    // è·å–ç›®æ ‡ä½ç½®å’Œå½“å‰ä½ç½®
     //    Vec2 targetPosition = target->getPosition();
 
     //    //targetPosition.x=
 
     //    Vec2 currentPosition = this->getPosition();
     //    
-    //    //// ¼ÆËã·½ÏòÏòÁ¿
+    //    //// è®¡ç®—æ–¹å‘å‘é‡
     //    //Vec2 direction = targetPosition - currentPosition;
 
-    //    //// Èç¹ûÓ¢ĞÛÒÑ¾­ÔÚÄ¿±ê¸½½ü£¬ÔòÎŞĞèÒÆ¶¯
+    //    //// å¦‚æœè‹±é›„å·²ç»åœ¨ç›®æ ‡é™„è¿‘ï¼Œåˆ™æ— éœ€ç§»åŠ¨
     //    //if (direction.lengthSquared() <= _attackRange * _attackRange) {
     //    //    return;
     //    //}
 
-    //    //// ±ê×¼»¯·½ÏòÏòÁ¿²¢³ËÒÔÒÆ¶¯ËÙÂÊ
+    //    //// æ ‡å‡†åŒ–æ–¹å‘å‘é‡å¹¶ä¹˜ä»¥ç§»åŠ¨é€Ÿç‡
     //    //Vec2 normalizedDirection = direction.getNormalized();
     //    //Vec2 movement = normalizedDirection * 50;
 
-    //    //// ¼ÆËãĞÂÎ»ÖÃ
+    //    //// è®¡ç®—æ–°ä½ç½®
     //    //Vec2 newPos = currentPosition + movement;
 
-    //    //// ¸üĞÂÓ¢ĞÛÎ»ÖÃ
+    //    //// æ›´æ–°è‹±é›„ä½ç½®
 
     //    //float distance = getDistance(target);
     //    //auto action = MoveTo::create(distance / 50, target->getPosition());
@@ -283,158 +289,162 @@ void Hero::moveToTarget(Hero* target) {
     //    //Vec2 targetPosition = target->getPosition();
     //    //Vec2 currentPosition = this->getPosition();
 
-    //    // ¼ÆËã·½ÏòÏòÁ¿
-    //    // ¼ÆËãĞÂµÄÎ»ÖÃ
+    //    // è®¡ç®—æ–¹å‘å‘é‡
+    //    // è®¡ç®—æ–°çš„ä½ç½®
     //    //Vec2 newPosition = currentPosition + delta;
 
-    //    //// Ê¹ÓÃ clamp ÏŞÖÆĞÂÎ»ÖÃÔÚÖ¸¶¨ÇøÓòÄÚ
+    //    //// ä½¿ç”¨ clamp é™åˆ¶æ–°ä½ç½®åœ¨æŒ‡å®šåŒºåŸŸå†…
     //    //newPosition.x = clamp(newPosition.x, targetRect.origin.x, targetRect.origin.x + targetRect.size.width);
     //    //newPosition.y = clamp(newPosition.y, targetRect.origin.y, targetRect.origin.y + targetRect.size.height);
     //    Vec2 direction = targetPosition - currentPosition;
 
-    //    // Èç¹ûÓ¢ĞÛÒÑ¾­ÔÚÄ¿±ê¸½½ü£¬ÔòÎŞĞèÒÆ¶¯
+    //    // å¦‚æœè‹±é›„å·²ç»åœ¨ç›®æ ‡é™„è¿‘ï¼Œåˆ™æ— éœ€ç§»åŠ¨
     //    if (direction.lengthSquared() <= _attackRange * _attackRange) {
     //        return;
     //    }
 
-    //    // ±ê×¼»¯·½ÏòÏòÁ¿²¢³ËÒÔÒÆ¶¯ËÙÂÊ
+    //    // æ ‡å‡†åŒ–æ–¹å‘å‘é‡å¹¶ä¹˜ä»¥ç§»åŠ¨é€Ÿç‡
     //    Vec2 normalizedDirection = direction.getNormalized();
     //    Vec2 movement = normalizedDirection * 50;
 
-    //    // ¼ÆËãĞÂÎ»ÖÃ
+    //    // è®¡ç®—æ–°ä½ç½®
     //    Vec2 newPos = currentPosition + movement;
 
-    //    // ¼ÆËãÒÆ¶¯µÄÊ±¼ä
+    //    // è®¡ç®—ç§»åŠ¨çš„æ—¶é—´
     //    float distance = getDistance(target);
     //    float moveTime = distance / 50;
 
 
-    //    // Ìí¼Ó¶¯×÷Íê³ÉµÄ»Øµ÷º¯Êı
+    //    // æ·»åŠ åŠ¨ä½œå®Œæˆçš„å›è°ƒå‡½æ•°
     //    auto callback = CallFunc::create([this]() {
-    //        // ÔÚ»Øµ÷º¯ÊıÖĞÍ£Ö¹ËùÓĞ¶¯×÷£¬¼´½«ËÙ¶È¹éÁã
+    //        // åœ¨å›è°ƒå‡½æ•°ä¸­åœæ­¢æ‰€æœ‰åŠ¨ä½œï¼Œå³å°†é€Ÿåº¦å½’é›¶
     //        this->stopAllActions();
     //        });
-    //    // Ê¹ÓÃMoveTo¶¯×÷ÒÆ¶¯Ó¢ĞÛ
+    //    // ä½¿ç”¨MoveToåŠ¨ä½œç§»åŠ¨è‹±é›„
     //    auto moveToAction = MoveTo::create(moveTime, target->getPosition());
 
-    //    // ´´½¨Ò»¸ö¶¯×÷ĞòÁĞ£¬ÏÈÖ´ĞĞMoveTo£¬È»ºóÖ´ĞĞ»Øµ÷
+    //    // åˆ›å»ºä¸€ä¸ªåŠ¨ä½œåºåˆ—ï¼Œå…ˆæ‰§è¡ŒMoveToï¼Œç„¶åæ‰§è¡Œå›è°ƒ
     //    auto sequence = Sequence::create(moveToAction, callback, nullptr);
 
-    //    // ÔËĞĞ¶¯×÷ĞòÁĞ
+    //    // è¿è¡ŒåŠ¨ä½œåºåˆ—
     //    this->runAction(sequence);
     //    //this->runAction(moveToAction);
-    //    //TO DO:ÓĞµãbug
+    //    //TO DO:æœ‰ç‚¹bug
     //    //this->setPosition(newPos);
     //}
     
     if (target != nullptr) {
-        // »ñÈ¡Ä¿±êÎ»ÖÃºÍµ±Ç°Î»ÖÃ
+        // è·å–ç›®æ ‡ä½ç½®å’Œå½“å‰ä½ç½®
         Vec2 targetPosition = target->getPosition();
         Vec2 currentPosition = this->getPosition();
 
-        // ¼ÆËã·½ÏòÏòÁ¿
+        // è®¡ç®—æ–¹å‘å‘é‡
         Vec2 direction = targetPosition - currentPosition;
 
-        // Èç¹ûÓ¢ĞÛÒÑ¾­ÔÚÄ¿±ê¸½½ü£¬ÔòÎŞĞèÒÆ¶¯
+        // å¦‚æœè‹±é›„å·²ç»åœ¨ç›®æ ‡é™„è¿‘ï¼Œåˆ™æ— éœ€ç§»åŠ¨
         if (direction.lengthSquared() <= _attackRange * _attackRange) {
             return;
         }
 
-        // ±ê×¼»¯·½ÏòÏòÁ¿²¢³ËÒÔÒÆ¶¯ËÙÂÊ
+        // æ ‡å‡†åŒ–æ–¹å‘å‘é‡å¹¶ä¹˜ä»¥ç§»åŠ¨é€Ÿç‡
         Vec2 normalizedDirection = direction.getNormalized();
         Vec2 movement = normalizedDirection * 50;
 
-        // ¼ÆËãĞÂÎ»ÖÃ
+        // è®¡ç®—æ–°ä½ç½®
         Vec2 newPos = currentPosition + movement;
 
-        // Ê¹ÓÃ clamp ÏŞÖÆĞÂÎ»ÖÃÔÚÖ¸¶¨ÇøÓòÄÚ
+        // ä½¿ç”¨ clamp é™åˆ¶æ–°ä½ç½®åœ¨æŒ‡å®šåŒºåŸŸå†…
         newPos.x = clamp(newPos.x, targetRect.origin.x, targetRect.origin.x + targetRect.size.width);
         newPos.y = clamp(newPos.y, targetRect.origin.y, targetRect.origin.y + targetRect.size.height);
 
-        // ¼ÆËãÒÆ¶¯µÄÊ±¼ä
+        // è®¡ç®—ç§»åŠ¨çš„æ—¶é—´
         float distance = getDistance(target);
         float moveTime = distance / 50;
 
-        // Ìí¼Ó¶¯×÷Íê³ÉµÄ»Øµ÷º¯Êı
+        // æ·»åŠ åŠ¨ä½œå®Œæˆçš„å›è°ƒå‡½æ•°
         auto callback = CallFunc::create([this]() {
-            // ÔÚ»Øµ÷º¯ÊıÖĞÍ£Ö¹ËùÓĞ¶¯×÷£¬¼´½«ËÙ¶È¹éÁã
+            // åœ¨å›è°ƒå‡½æ•°ä¸­åœæ­¢æ‰€æœ‰åŠ¨ä½œï¼Œå³å°†é€Ÿåº¦å½’é›¶
             this->stopAllActions();
             });
 
-        // Ê¹ÓÃ MoveTo ¶¯×÷ÒÆ¶¯Ó¢ĞÛµ½ĞÂÎ»ÖÃ
+        // ä½¿ç”¨ MoveTo åŠ¨ä½œç§»åŠ¨è‹±é›„åˆ°æ–°ä½ç½®
         auto moveToAction = MoveTo::create(moveTime, newPos);
 
-        // ´´½¨Ò»¸ö¶¯×÷ĞòÁĞ£¬ÏÈÖ´ĞĞ MoveTo£¬È»ºóÖ´ĞĞ»Øµ÷
+        // åˆ›å»ºä¸€ä¸ªåŠ¨ä½œåºåˆ—ï¼Œå…ˆæ‰§è¡Œ MoveToï¼Œç„¶åæ‰§è¡Œå›è°ƒ
         auto sequence = Sequence::create(moveToAction, callback, nullptr);
 
-        // ÔËĞĞ¶¯×÷ĞòÁĞ
+        // è¿è¡ŒåŠ¨ä½œåºåˆ—
         this->runAction(sequence);
     }
 
     }
 
 
-//¹¥»÷¶¯»­
+//æ”»å‡»åŠ¨ç”»
 void Hero::playAttackAnimation() {
-    // ÉèÖÃĞı×ª½Ç¶ÈºÍ¶¯»­³ÖĞøÊ±¼ä
-    float rotateAngle = 10.0f; // Ğı×ª½Ç¶È£¬¿ÉÒÔµ÷ÕûÎª¸üÊÊºÏµÄÖµ
-    float duration = 0.1f; // ¶¯»­³ÖĞøÊ±¼ä
+    // è®¾ç½®æ—‹è½¬è§’åº¦å’ŒåŠ¨ç”»æŒç»­æ—¶é—´
+    float rotateAngle = 10.0f; // æ—‹è½¬è§’åº¦ï¼Œå¯ä»¥è°ƒæ•´ä¸ºæ›´é€‚åˆçš„å€¼
+    float duration = 0.1f; // åŠ¨ç”»æŒç»­æ—¶é—´
 
-    // ´´½¨Ğı×ª¶¯×÷
+    // åˆ›å»ºæ—‹è½¬åŠ¨ä½œ
     auto rotateAction = RotateBy::create(duration, rotateAngle);
     auto rotateBackAction = rotateAction->reverse();
 
-    // ´´½¨¶¯»­ĞòÁĞ£ºĞı×ª³öÈ¥È»ºóĞı×ª»ØÀ´
+    // åˆ›å»ºåŠ¨ç”»åºåˆ—ï¼šæ—‹è½¬å‡ºå»ç„¶åæ—‹è½¬å›æ¥
     auto attackAnimation = Sequence::create(rotateAction, rotateBackAction, nullptr);
 
-    // Ö´ĞĞ¶¯»­
+    // æ‰§è¡ŒåŠ¨ç”»
     this->runAction(attackAnimation);
 }
+
 void Hero::performRangedAttackAnimation(Hero* target) {
-    if (_attackRange > 200) { // ¼ì²éÊÇ·ñÎªÔ¶³Ì¹¥»÷ĞÍÓ¢ĞÛ
-        // ´´½¨×Óµ¯¾«Áé
+    if (_attackRange > 200) { // æ£€æŸ¥æ˜¯å¦ä¸ºè¿œç¨‹æ”»å‡»å‹è‹±é›„
+        // åˆ›å»ºå­å¼¹ç²¾çµ
         auto bullet = Sprite::create("bullet.png");
-        bullet->setPosition(this->getPosition()); // ³õÊ¼Î»ÖÃÉèÖÃÎªÓ¢ĞÛµÄÎ»ÖÃ
+
+        bullet->setName("bullet");
+
+        bullet->setPosition(this->getPosition()); // åˆå§‹ä½ç½®è®¾ç½®ä¸ºè‹±é›„çš„ä½ç½®
         bullet->setScale(2.0f);
-        this->addChild(bullet); // È·±£×Óµ¯±»Ìí¼Óµ½ÓëÓ¢ĞÛÏàÍ¬µÄ²ã¼¶
+        this->addChild(bullet); // ç¡®ä¿å­å¼¹è¢«æ·»åŠ åˆ°ä¸è‹±é›„ç›¸åŒçš„å±‚çº§
         
-        // ´´½¨Ò»¸ö¶¯»­£¬½«×Óµ¯ÒÆ¶¯µ½Ä¿±êÎ»ÖÃ
-        auto moveAction = MoveTo::create(0.5f, target->getPosition()); // µ÷ÕûÊ±¼äÒÔÆ¥Åä×Óµ¯µÄ·ÉĞĞËÙ¶È
+        // åˆ›å»ºä¸€ä¸ªåŠ¨ç”»ï¼Œå°†å­å¼¹ç§»åŠ¨åˆ°ç›®æ ‡ä½ç½®
+        auto moveAction = MoveTo::create(0.5f, target->getPosition()); // è°ƒæ•´æ—¶é—´ä»¥åŒ¹é…å­å¼¹çš„é£è¡Œé€Ÿåº¦
         auto removeAction = CallFunc::create([bullet]() {
-            bullet->removeFromParent(); // ¶¯»­½áÊøºóÒÆ³ı×Óµ¯
+            bullet->removeFromParent(); // åŠ¨ç”»ç»“æŸåç§»é™¤å­å¼¹
             });
 
-        // ÔËĞĞ¶¯»­
+        // è¿è¡ŒåŠ¨ç”»
         bullet->runAction(Sequence::create(moveAction, removeAction, nullptr));
     }
 }
 
-//¹¥»÷
+//æ”»å‡»
 void Hero::attackTarget(Hero* target) {
-    // Ç¿ÖÆ×ª»»Ä¿±êÎª Hero ÀàĞÍ
+    // å¼ºåˆ¶è½¬æ¢ç›®æ ‡ä¸º Hero ç±»å‹
     auto enemyHero = dynamic_cast<Hero*>(target);
     if (enemyHero) {
-        // ¼ÆËãÔì³ÉµÄÉËº¦
-        float damage = _currentPhysicalAttack; // ÕâÀï¼ò»¯ÁËÉËº¦¼ÆËã£¬Êµ¼Ê¿ÉÄÜ¸ü¸´ÔÓ
+        // è®¡ç®—é€ æˆçš„ä¼¤å®³
+        float damage = _currentPhysicalAttack; // è¿™é‡Œç®€åŒ–äº†ä¼¤å®³è®¡ç®—ï¼Œå®é™…å¯èƒ½æ›´å¤æ‚
 
-        // Ó¦ÓÃÉËº¦µ½Ä¿±êÓ¢ĞÛ
+        // åº”ç”¨ä¼¤å®³åˆ°ç›®æ ‡è‹±é›„
         enemyHero->receiveDamage(damage);
 
-        // ²¥·Å¹¥»÷¶¯»­
+        // æ’­æ”¾æ”»å‡»åŠ¨ç”»
         playAttackAnimation();
-        // ¶ÔÓÚÔ¶³Ì¹¥»÷ĞÍÓ¢ĞÛ£¬Ö´ĞĞ¶îÍâµÄ¶¯»­
+        // å¯¹äºè¿œç¨‹æ”»å‡»å‹è‹±é›„ï¼Œæ‰§è¡Œé¢å¤–çš„åŠ¨ç”»
         performRangedAttackAnimation(target);
     }
 }
-//ÊÜÉË
+//å—ä¼¤
 void Hero::receiveDamage(float damage) {
     this->_initialMana += 10;
     if(_currentHealth - damage<0){
         _currentHealth = 0;
-        onDeath(); // ´¦ÀíËÀÍöÂß¼­
+        onDeath(); // å¤„ç†æ­»äº¡é€»è¾‘
     }
     else {
-        _currentHealth -= damage; // ¼õÉÙÉúÃüÖµ
+        _currentHealth -= damage; // å‡å°‘ç”Ÿå‘½å€¼
     }
     int index = static_cast<int>(_level);
     CCLOG("the health:%f", 1.0 * _currentHealth / _health[index]*100);
@@ -443,11 +453,11 @@ void Hero::receiveDamage(float damage) {
 }
 
 void Hero::onDeath() {
-    // ²¥·ÅËÀÍö¶¯»­
+    // æ’­æ”¾æ­»äº¡åŠ¨ç”»
     auto deathAnimation = Sequence::create(
-        FadeOut::create(1.0f), // 1ÃëÄÚÖğ½¥ÏûÊ§
+        FadeOut::create(1.0f), // 1ç§’å†…é€æ¸æ¶ˆå¤±
         CallFunc::create([this]() {
-            this->removeFromParent(); // ´Ó¸¸½ÚµãÒÆ³ı
+            this->removeFromParent(); // ä»çˆ¶èŠ‚ç‚¹ç§»é™¤
             this->setIsDead(true);
             }),
         nullptr
@@ -455,29 +465,29 @@ void Hero::onDeath() {
 
     this->runAction(deathAnimation);
 
-    // ¿ÉÒÔÔÚÕâÀïÖ´ĞĞÆäËûËÀÍöÏà¹ØÂß¼­£¬±ÈÈç¸üĞÂ·ÖÊı¡¢´¥·¢ÊÂ¼şµÈ
-    // ÀıÈç£¬Í¨ÖªÓÎÏ·¹ÜÀíÆ÷Ó¢ĞÛËÀÍö
+    // å¯ä»¥åœ¨è¿™é‡Œæ‰§è¡Œå…¶ä»–æ­»äº¡ç›¸å…³é€»è¾‘ï¼Œæ¯”å¦‚æ›´æ–°åˆ†æ•°ã€è§¦å‘äº‹ä»¶ç­‰
+    // ä¾‹å¦‚ï¼Œé€šçŸ¥æ¸¸æˆç®¡ç†å™¨è‹±é›„æ­»äº¡
     // GameManager::getInstance()->onHeroDeath(this);
 }
 
-//ÅĞ¶ÏÊÇ·ñÔÚ¹¥»÷¾àÀë
+//åˆ¤æ–­æ˜¯å¦åœ¨æ”»å‡»è·ç¦»
 bool Hero::isInRange(Hero* target) {
     float distance = getDistance(target);
-    return distance <= _attackRange; // ÅĞ¶Ï¾àÀëÊÇ·ñÔÚ¹¥»÷·¶Î§ÄÚ
+    return distance <= _attackRange; // åˆ¤æ–­è·ç¦»æ˜¯å¦åœ¨æ”»å‡»èŒƒå›´å†…
 }
 bool Hero::isEnemy(Hero* hero) {
-    // ÕâÀïµÄÂß¼­È¡¾öÓÚÄúµÄÓÎÏ·Éè¼Æ¡£
-    // ÒÔÏÂÊÇÒ»¸ö»ùÓÚÍÅ¶Ó²»Í¬À´ÅĞ¶ÏµĞÈËµÄÊ¾Àı£º
+    // è¿™é‡Œçš„é€»è¾‘å–å†³äºæ‚¨çš„æ¸¸æˆè®¾è®¡ã€‚
+    // ä»¥ä¸‹æ˜¯ä¸€ä¸ªåŸºäºå›¢é˜Ÿä¸åŒæ¥åˆ¤æ–­æ•Œäººçš„ç¤ºä¾‹ï¼š
 
-    // ¼ì²éÓ¢ĞÛÊÇ·ñ´æÔÚÒÔ¼°ÊÇ·ñÊôÓÚ²»Í¬µÄÍÅ¶Ó
+    // æ£€æŸ¥è‹±é›„æ˜¯å¦å­˜åœ¨ä»¥åŠæ˜¯å¦å±äºä¸åŒçš„å›¢é˜Ÿ
     if (hero && this->_team != hero->_team) {
-        return true; // ²»Í¬ÍÅ¶ÓµÄÓ¢ĞÛ±»ÊÓÎªµĞÈË
+        return true; // ä¸åŒå›¢é˜Ÿçš„è‹±é›„è¢«è§†ä¸ºæ•Œäºº
     }
 
-    return false; // Í¬Ò»ÍÅ¶Ó»òÎŞĞ§Ó¢ĞÛ²»ÊÇµĞÈË
+    return false; // åŒä¸€å›¢é˜Ÿæˆ–æ— æ•ˆè‹±é›„ä¸æ˜¯æ•Œäºº
 }
 bool Hero::isEnd()
-{//ĞèÒªĞŞ¸Ä£¬Ö»ÅĞ¶ÏÁË¶Ô·½ÊÇ·ñËÀ¹â£¬²»¹ı¿ÉÒÔÔÚÎÒĞ´µÄPlayerÀàÖĞÅĞ¶Ï
+{//éœ€è¦ä¿®æ”¹ï¼Œåªåˆ¤æ–­äº†å¯¹æ–¹æ˜¯å¦æ­»å…‰ï¼Œä¸è¿‡å¯ä»¥åœ¨æˆ‘å†™çš„Playerç±»ä¸­åˆ¤æ–­
     auto children = this->getScene()->getChildren();
     if (children.empty()) {
         return 1;
@@ -493,12 +503,12 @@ AkaliHero::AkaliHero()
     _career = 1;
     hero_type = 1;
     _power = _star + int(_level);
-    // ³õÊ¼»¯ Akali ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Akali ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
 }
 
 AkaliHero* AkaliHero::create() {
     AkaliHero* akali = new (std::nothrow) AkaliHero();
-    if (akali && akali->initWithFile("heroes/1.png")) { // ¼ÙÉèÓĞ akali.png ÎÄ¼ş
+    if (akali && akali->initWithFile("heroes/1.png")) { // å‡è®¾æœ‰ akali.png æ–‡ä»¶
         akali->autorelease();
         return akali;
     }
@@ -509,23 +519,23 @@ AkaliHero* AkaliHero::create() {
 void AkaliHero::castSkill() {
     CCLOG("Akali casts Unending Melody.");
 
-    // ÉËº¦Öµ¸ù¾İµÈ¼¶±ä»¯
+    // ä¼¤å®³å€¼æ ¹æ®ç­‰çº§å˜åŒ–
     float initialDamage[3] = { 114, 171, 513 };
 
-    // ÕÒµ½×îÔ¶µÄµĞÈË²¢¶ÔÆäÔì³ÉÉËº¦
+    // æ‰¾åˆ°æœ€è¿œçš„æ•Œäººå¹¶å¯¹å…¶é€ æˆä¼¤å®³
     Hero* farthestEnemy = getFarthestEnemy();
     if (farthestEnemy) {
-        // Ä£Äâ¹¥»÷×îÔ¶µÄµĞÈË
+        // æ¨¡æ‹Ÿæ”»å‡»æœ€è¿œçš„æ•Œäºº
         float originalAttack = _currentPhysicalAttack;
         _currentPhysicalAttack = initialDamage[static_cast<int>(_level)];
         attackTarget(farthestEnemy);
-        _currentPhysicalAttack = originalAttack; // »Ö¸´Ô­Ê¼¹¥»÷Á¦
+        _currentPhysicalAttack = originalAttack; // æ¢å¤åŸå§‹æ”»å‡»åŠ›
     }
 }
 
 Hero* AkaliHero::getFarthestEnemy() {
-    // »ñÈ¡³¡¾°ÖĞËùÓĞµÄµĞÈË½Úµã
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    // è·å–åœºæ™¯ä¸­æ‰€æœ‰çš„æ•ŒäººèŠ‚ç‚¹
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     
     return target;
 }
@@ -537,12 +547,12 @@ AnnieHero::AnnieHero()
     _career = 3;
     hero_type = 2;
     _power = _star + int(_level);
-    // ³õÊ¼»¯ Annie ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Annie ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
 }
 
 AnnieHero* AnnieHero::create() {
     AnnieHero* annie = new (std::nothrow) AnnieHero();
-    if (annie && annie->initWithFile("heroes/2.png")) { // ¼ÙÉèÓĞ annie.png ÎÄ¼ş
+    if (annie && annie->initWithFile("heroes/2.png")) { // å‡è®¾æœ‰ annie.png æ–‡ä»¶
         annie->autorelease();
         return annie;
     }
@@ -554,27 +564,27 @@ void AnnieHero::castSkill() {
     CCLOG("Annie casts Dark Fracture.");
 
     float activeDamage[3] = { 195, 295, 440 };
-    // ¶Ôµ±Ç°¹¥»÷Ä¿±êÔì³ÉÄ§·¨ÉËº¦
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    // å¯¹å½“å‰æ”»å‡»ç›®æ ‡é€ æˆé­”æ³•ä¼¤å®³
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     target->receiveDamage(activeDamage[levelIndex]);
     
 
-    // ´¦Àí±»¶¯¼¼ÄÜĞ§¹û
+    // å¤„ç†è¢«åŠ¨æŠ€èƒ½æ•ˆæœ
     applyPassive();
 }
 
 void AnnieHero::applyPassive() {
     _skillCastCount++;
     if (_skillCastCount >= 4) {
-        _attackSpeed *= 1.5f; // Ôö¼Ó50%¹¥»÷ËÙ¶È
-        _skillCastCount = 0; // ÖØÖÃ¼¼ÄÜÊÍ·Å¼ÆÊı
+        _attackSpeed *= 1.5f; // å¢åŠ 50%æ”»å‡»é€Ÿåº¦
+        _skillCastCount = 0; // é‡ç½®æŠ€èƒ½é‡Šæ”¾è®¡æ•°
     }
 }
 
 AriHero::AriHero()
     : Hero({ 700, 1260, 2268 }, { 50, 75, 113 }, 30, 30, 0.25, 300, 0, 30, 0.65) {
-    // ³õÊ¼»¯ Ari ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Ari ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 2;
     _star = 4;
     _career = 3;
@@ -584,7 +594,7 @@ AriHero::AriHero()
 
 AriHero* AriHero::create() {
     AriHero* ari = new (std::nothrow) AriHero();
-    if (ari && ari->initWithFile("heroes/3.png")) { // ¼ÙÉèÓĞ ari.png ÎÄ¼ş
+    if (ari && ari->initWithFile("heroes/3.png")) { // å‡è®¾æœ‰ ari.png æ–‡ä»¶
         ari->autorelease();
         return ari;
     }
@@ -595,37 +605,37 @@ AriHero* AriHero::create() {
 void AriHero::castSkill() {
     CCLOG("Ari casts Idol Charm.");
 
-    // ¸ù¾İµÈ¼¶È·¶¨ÉËº¦Öµ
+    // æ ¹æ®ç­‰çº§ç¡®å®šä¼¤å®³å€¼
     float normalDamage[3] = { 275, 410, 820 };
     float enhancedDamage[3] = { 480, 720, 1440 };
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
 
-    // »ñÈ¡µ±Ç°¹¥»÷Ä¿±ê
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    // è·å–å½“å‰æ”»å‡»ç›®æ ‡
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
-        // ¶ÔÄ¿±êÔì³ÉÆÕÍ¨ÉËº¦
+        // å¯¹ç›®æ ‡é€ æˆæ™®é€šä¼¤å®³
         dealMagicDamageToTarget(target, normalDamage[levelIndex]);
 
-        // ¶ÔÄ¿±êÔì³ÉÔöÇ¿ÉËº¦
+        // å¯¹ç›®æ ‡é€ æˆå¢å¼ºä¼¤å®³
         dealMagicDamageToTarget(target, enhancedDamage[levelIndex]);
     }
 }
 
 void AriHero::dealMagicDamageToTarget(Hero* target, float damage) {
-    // Ç¿ÖÆ×ª»»Ä¿±êÎª Hero ÀàĞÍ
+    // å¼ºåˆ¶è½¬æ¢ç›®æ ‡ä¸º Hero ç±»å‹
     auto enemyHero = dynamic_cast<Hero*>(target);
     if (enemyHero) {
-        // Ó¦ÓÃÉËº¦µ½Ä¿±êÓ¢ĞÛ
+        // åº”ç”¨ä¼¤å®³åˆ°ç›®æ ‡è‹±é›„
         enemyHero->receiveDamage(damage);
 
-        // ²¥·Å¹¥»÷¶¯»­
+        // æ’­æ”¾æ”»å‡»åŠ¨ç”»
         playAttackAnimation();
     }
 }
 
 CatalinaHero::CatalinaHero()
     : Hero({ 650, 1170, 2106 }, { 40, 60, 90 }, 35, 35, 0.25, 100, 20, 60, 0.7, Level::Level1) {
-    // ³õÊ¼»¯ Catalina ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Catalina ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 3;
     _star = 2;
     _career = 1;
@@ -635,7 +645,7 @@ CatalinaHero::CatalinaHero()
 
 CatalinaHero* CatalinaHero::create() {
     CatalinaHero* catalina = new (std::nothrow) CatalinaHero();
-    if (catalina && catalina->initWithFile("heroes/4.png")) { // ¼ÙÉèÓĞ catalina.png ÎÄ¼ş
+    if (catalina && catalina->initWithFile("heroes/4.png")) { // å‡è®¾æœ‰ catalina.png æ–‡ä»¶
         catalina->autorelease();
         return catalina;
     }
@@ -647,16 +657,16 @@ void CatalinaHero::castSkill() {
     CCLOG("Catalina casts Ricochet Blade.");
 
     float damage[3] = { 140, 210, 315 };
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
 
-    // »ñÈ¡µ±Ç°¹¥»÷Ä¿±ê
+    // è·å–å½“å‰æ”»å‡»ç›®æ ‡
     Hero* target = dynamic_cast<Hero*>(getNextEnemyHero());
     if (target) {
-        // ¶ÔÄ¿±êÔì³ÉÉËº¦
+        // å¯¹ç›®æ ‡é€ æˆä¼¤å®³
         target->receiveDamage(damage[levelIndex]);
 
-        // Èç¹ûĞèÒª£¬ÊµÏÖÀûÈĞµ¯ÌøÂß¼­
-        // Õâ¿ÉÄÜĞèÒª¶îÍâµÄÂß¼­À´Ñ¡ÔñÏÂÒ»¸öÄ¿±ê²¢Ó¦ÓÃÉËº¦
+        // å¦‚æœéœ€è¦ï¼Œå®ç°åˆ©åˆƒå¼¹è·³é€»è¾‘
+        // è¿™å¯èƒ½éœ€è¦é¢å¤–çš„é€»è¾‘æ¥é€‰æ‹©ä¸‹ä¸€ä¸ªç›®æ ‡å¹¶åº”ç”¨ä¼¤å®³
         // ...
     }
     performRangedAttackAnimation(target);
@@ -665,7 +675,7 @@ void CatalinaHero::castSkill() {
 EvelynnHero::EvelynnHero()
     : Hero({ 700, 1260, 2268 }, { 50, 75, 113 }, 30, 30, 0.25, 100, 0, 40, 0.85, Level::Level1),
     _skillCastCount(0) {
-    // ³õÊ¼»¯ Evelynn ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Evelynn ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 4;
     _star = 1;
     _career = 1;
@@ -675,7 +685,7 @@ EvelynnHero::EvelynnHero()
 
 EvelynnHero* EvelynnHero::create() {
     EvelynnHero* evelynn = new (std::nothrow) EvelynnHero();
-    if (evelynn && evelynn->initWithFile("heroes/5.png")) { // ¼ÙÉèÓĞ evelynn.png ÎÄ¼ş
+    if (evelynn && evelynn->initWithFile("heroes/5.png")) { // å‡è®¾æœ‰ evelynn.png æ–‡ä»¶
         evelynn->autorelease();
         return evelynn;
     }
@@ -686,19 +696,19 @@ EvelynnHero* EvelynnHero::create() {
 void EvelynnHero::castSkill() {
     CCLOG("Evelynn casts Party Crash.");
 
-    float lineDamage[3] = { 325, 488, 1463 }; // Ö±ÏßÉËº¦
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
+    float lineDamage[3] = { 325, 488, 1463 }; // ç›´çº¿ä¼¤å®³
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
 
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
         if (isInRange(target)) {
             auto enemyHero = dynamic_cast<Hero*>(target);
             if (enemyHero) {
-                // ¼ÆËãÔì³ÉµÄÉËº¦
-                float damage = lineDamage[levelIndex]; // ÕâÀï¼ò»¯ÁËÉËº¦¼ÆËã£¬Êµ¼Ê¿ÉÄÜ¸ü¸´ÔÓ
+                // è®¡ç®—é€ æˆçš„ä¼¤å®³
+                float damage = lineDamage[levelIndex]; // è¿™é‡Œç®€åŒ–äº†ä¼¤å®³è®¡ç®—ï¼Œå®é™…å¯èƒ½æ›´å¤æ‚
 
-                // Ó¦ÓÃÉËº¦µ½Ä¿±êÓ¢ĞÛ
-                enemyHero->receiveDamage(damage);// Èç¹ûÔÚ¹¥»÷·¶Î§ÄÚ£¬Ôò¹¥»÷
+                // åº”ç”¨ä¼¤å®³åˆ°ç›®æ ‡è‹±é›„
+                enemyHero->receiveDamage(damage);// å¦‚æœåœ¨æ”»å‡»èŒƒå›´å†…ï¼Œåˆ™æ”»å‡»
             }
         }
     }
@@ -708,7 +718,7 @@ void EvelynnHero::castSkill() {
 EzrealHero :: EzrealHero()
     : Hero({ 990, 1460, 2350 }, { 60, 85, 133 }, 30, 30, 0.25, 600, 0, 40, 1.2, Level::Level1),
     _skillCastCount(0) {
-    // ³õÊ¼»¯ Evelynn ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Evelynn ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 5;
     _star = 4;
     _career = 2;
@@ -718,7 +728,7 @@ EzrealHero :: EzrealHero()
 
 EzrealHero* EzrealHero::create() {
     EzrealHero* evelynn = new (std::nothrow) EzrealHero();
-    if (evelynn && evelynn->initWithFile("heroes/6.png")) { // ¼ÙÉèÓĞ evelynn.png ÎÄ¼ş
+    if (evelynn && evelynn->initWithFile("heroes/6.png")) { // å‡è®¾æœ‰ evelynn.png æ–‡ä»¶
         evelynn->autorelease();
         return evelynn;
     }
@@ -729,21 +739,21 @@ EzrealHero* EzrealHero::create() {
 void EzrealHero::castSkill() {
     CCLOG("Evelynn casts Party Crash.");
 
-    float lineDamage[3] = { 325, 488, 1463 }; // Ö±ÏßÉËº¦
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
+    float lineDamage[3] = { 325, 488, 1463 }; // ç›´çº¿ä¼¤å®³
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
     
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
         if (isInRange(target)) {
             
-                attackTarget(target); // Èç¹ûÔÚ¹¥»÷·¶Î§ÄÚ£¬Ôò¹¥»÷
+                attackTarget(target); // å¦‚æœåœ¨æ”»å‡»èŒƒå›´å†…ï¼Œåˆ™æ”»å‡»
         }
     }
 }
 
 GalenHero::GalenHero()
     : Hero({ 750, 1350, 2430 }, { 55, 83, 124 }, 45, 45, 0.25, 100, 50, 100, 0.7, Level::Level1) {
-    // ³õÊ¼»¯ Galen ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Galen ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 6;
     _star = 2;
     _career = 0;
@@ -753,7 +763,7 @@ GalenHero::GalenHero()
 
 GalenHero* GalenHero::create() {
     GalenHero* galen = new (std::nothrow) GalenHero();
-    if (galen && galen->initWithFile("heroes/7.png")) { // ¼ÙÉèÓĞ galen.png ÎÄ¼ş
+    if (galen && galen->initWithFile("heroes/7.png")) { // å‡è®¾æœ‰ galen.png æ–‡ä»¶
         galen->autorelease();
         return galen;
     }
@@ -764,34 +774,34 @@ GalenHero* GalenHero::create() {
 void GalenHero::castSkill() {
     CCLOG("Galen activates Power Surge!");
 
-    // Ôö¼Ó×î´óÉúÃüÖµ
+    // å¢åŠ æœ€å¤§ç”Ÿå‘½å€¼
     float additionalHealth[3] = { 200, 215, 230 };
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
     _currentHealth += additionalHealth[levelIndex];
-    _health[levelIndex] += additionalHealth[levelIndex]; // ¸üĞÂ×î´óÉúÃüÖµ
+    _health[levelIndex] += additionalHealth[levelIndex]; // æ›´æ–°æœ€å¤§ç”Ÿå‘½å€¼
 
-    // ÏÂ´Î¹¥»÷Ôì³É¶îÍâÉËº¦
+    // ä¸‹æ¬¡æ”»å‡»é€ æˆé¢å¤–ä¼¤å®³
     float additionalDamage[3] = { 163, 267, 441 };
-    float _extraAttackDamage = additionalDamage[levelIndex]; // ´æ´¢¶îÍâÉËº¦Öµ
+    float _extraAttackDamage = additionalDamage[levelIndex]; // å­˜å‚¨é¢å¤–ä¼¤å®³å€¼
 
-    // ±ê¼ÇÏÂÒ»´Î¹¥»÷½«Ó¦ÓÃ¶îÍâÉËº¦ 
+    // æ ‡è®°ä¸‹ä¸€æ¬¡æ”»å‡»å°†åº”ç”¨é¢å¤–ä¼¤å®³ 
     Hero* target = dynamic_cast<Hero*>(getNextEnemyHero());
     auto enemyHero = dynamic_cast<Hero*>(target);
     if (enemyHero) {
-        // ¼ÆËãÔì³ÉµÄÉËº¦
-        float damage = _currentPhysicalAttack + _extraAttackDamage;// ÕâÀï¼ò»¯ÁËÉËº¦¼ÆËã£¬Êµ¼Ê¿ÉÄÜ¸ü¸´ÔÓ
+        // è®¡ç®—é€ æˆçš„ä¼¤å®³
+        float damage = _currentPhysicalAttack + _extraAttackDamage;// è¿™é‡Œç®€åŒ–äº†ä¼¤å®³è®¡ç®—ï¼Œå®é™…å¯èƒ½æ›´å¤æ‚
 
-        // Ó¦ÓÃÉËº¦µ½Ä¿±êÓ¢ĞÛ
+        // åº”ç”¨ä¼¤å®³åˆ°ç›®æ ‡è‹±é›„
         enemyHero->receiveDamage(damage);
 
-        // ²¥·Å¹¥»÷¶¯»­
+        // æ’­æ”¾æ”»å‡»åŠ¨ç”»
         playAttackAnimation();
     }
 }
 
 GiggsHero::GiggsHero()
     : Hero({ 800, 1440, 2592 }, { 65, 98, 146 }, 40, 40, 0.25, 400, 30, 75, 0.8, Level::Level1) {
-    // ³õÊ¼»¯ Giggs ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Giggs ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 7;
     _star = 5;
     _career = 3;
@@ -801,7 +811,7 @@ GiggsHero::GiggsHero()
 
 GiggsHero* GiggsHero::create() {
     GiggsHero* giggs = new (std::nothrow) GiggsHero();
-    if (giggs && giggs->initWithFile("heroes/8.png")) { // ¼ÙÉèÓĞ giggs.png ÎÄ¼ş
+    if (giggs && giggs->initWithFile("heroes/8.png")) { // å‡è®¾æœ‰ giggs.png æ–‡ä»¶
         giggs->autorelease();
         return giggs;
     }
@@ -812,18 +822,18 @@ GiggsHero* GiggsHero::create() {
 void GiggsHero::castSkill() {
     CCLOG("Giggs casts Chaos Theory.");
 
-    // Ä§·¨ÉËº¦Öµ¸ù¾İµÈ¼¶±ä»¯
+    // é­”æ³•ä¼¤å®³å€¼æ ¹æ®ç­‰çº§å˜åŒ–
     float magicDamage[3] = { 360, 540, 4000 };
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
 
-    // Ñ¡Ôñµ±Ç°Ä¿±ê²¢¶ÔÆäÔì³ÉÉËº¦
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    // é€‰æ‹©å½“å‰ç›®æ ‡å¹¶å¯¹å…¶é€ æˆä¼¤å®³
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
         auto enemyHero = dynamic_cast<Hero*>(target);
         if (enemyHero) {
-            // ¶ÔÄ¿±êÔì³ÉÄ§·¨ÉËº¦
+            // å¯¹ç›®æ ‡é€ æˆé­”æ³•ä¼¤å®³
             enemyHero->receiveMagicDamage(magicDamage[levelIndex]);
-            // ¿ÉÒÔÌí¼ÓÆäËûĞ§¹û£¬ÈçÕ¨µ¯·ÖÁÑ¡¢Ä§¿¹»÷ËéµÈ
+            // å¯ä»¥æ·»åŠ å…¶ä»–æ•ˆæœï¼Œå¦‚ç‚¸å¼¹åˆ†è£‚ã€é­”æŠ—å‡»ç¢ç­‰
             // ...
         }
     }
@@ -831,7 +841,7 @@ void GiggsHero::castSkill() {
 
 JinxHero::JinxHero()
     : Hero({ 450, 810, 1458 }, { 45, 68, 101 }, 15, 15, 0.25, 500, 0, 40, 0.7, Level::Level1) {
-    // ³õÊ¼»¯ Jinx ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Jinx ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 8;
     _star = 1;
     _career = 2;
@@ -850,20 +860,20 @@ JinxHero* JinxHero::create() {
 }
 
 void JinxHero::castSkill() {
-    // ÊµÏÖ Jinx µÄ¼¼ÄÜÂß¼­£ºÉ±ËÀºó¹¥»÷ËÙ¶ÈÔö¼Ó
+    // å®ç° Jinx çš„æŠ€èƒ½é€»è¾‘ï¼šæ€æ­»åæ”»å‡»é€Ÿåº¦å¢åŠ 
     CCLOG("Jinx activates her skill.");
 
     increaseAttackSpeed();
 
-    // TODO: ¸ù¾İÓÎÏ·µÄ¾ßÌåĞèÇóÌí¼ÓÆäËû¼¼ÄÜĞ§¹û£¬ÀıÈç·¢Éä´óĞÍ»ğ¼ı
+    // TODO: æ ¹æ®æ¸¸æˆçš„å…·ä½“éœ€æ±‚æ·»åŠ å…¶ä»–æŠ€èƒ½æ•ˆæœï¼Œä¾‹å¦‚å‘å°„å¤§å‹ç«ç®­
 }
 
 void JinxHero::increaseAttackSpeed() {
-    // ¼ÙÉè¼¼ÄÜĞ§¹ûÊÇÔö¼Ó50%µÄ¹¥»÷ËÙ¶È£¬³ÖĞø5Ãë
+    // å‡è®¾æŠ€èƒ½æ•ˆæœæ˜¯å¢åŠ 50%çš„æ”»å‡»é€Ÿåº¦ï¼ŒæŒç»­5ç§’
     float originalAttackSpeed = _attackSpeed;
-    _attackSpeed *= 1.5; // Ôö¼Ó¹¥»÷ËÙ¶È
+    _attackSpeed *= 1.5; // å¢åŠ æ”»å‡»é€Ÿåº¦
 
-    // ÉèÖÃÒ»¸öÑÓÊ±¶¯×÷£¬5Ãëºó»Ö¸´Ô­À´µÄ¹¥»÷ËÙ¶È
+    // è®¾ç½®ä¸€ä¸ªå»¶æ—¶åŠ¨ä½œï¼Œ5ç§’åæ¢å¤åŸæ¥çš„æ”»å‡»é€Ÿåº¦
     auto delay = DelayTime::create(5.0f);
     auto resetSpeed = CallFunc::create([this, originalAttackSpeed]() {
         _attackSpeed = originalAttackSpeed;
@@ -874,7 +884,7 @@ void JinxHero::increaseAttackSpeed() {
 
 KaiSaHero::KaiSaHero()
     : Hero({ 550, 990, 1782 }, { 50, 75, 113 }, 20, 20, 0.25, 500, 0, 60, 0.7, Level::Level1) {
-    // ³õÊ¼»¯ KaiSa ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– KaiSa ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 9;
     _star = 2;
     _career = 2;
@@ -884,7 +894,7 @@ KaiSaHero::KaiSaHero()
 
 KaiSaHero* KaiSaHero::create() {
     KaiSaHero* kaisa = new (std::nothrow) KaiSaHero();
-    if (kaisa && kaisa->initWithFile("heroes/10.png")) { // ¼ÙÉèÓĞ kaisa.png ÎÄ¼ş
+    if (kaisa && kaisa->initWithFile("heroes/10.png")) { // å‡è®¾æœ‰ kaisa.png æ–‡ä»¶
         kaisa->autorelease();
         return kaisa;
     }
@@ -895,17 +905,17 @@ KaiSaHero* KaiSaHero::create() {
 void KaiSaHero::castSkill() {
     CCLOG("KaiSa casts Icathian Rain.");
 
-    // ¼¼ÄÜÉËº¦Öµ¸ù¾İµÈ¼¶±ä»¯
+    // æŠ€èƒ½ä¼¤å®³å€¼æ ¹æ®ç­‰çº§å˜åŒ–
     float damagePercent[3] = { 280, 280, 285 };
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
 
-    // »ñÈ¡µ±Ç°¹¥»÷Ä¿±ê
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    // è·å–å½“å‰æ”»å‡»ç›®æ ‡
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
-        // ³å´ÌÖÁÄ¿±ê£¨Èç¹û¾àÀë³¬¹ı2¸ñ£¬ÔòÒÆ¶¯2¸ñ¾àÀë£©
+        // å†²åˆºè‡³ç›®æ ‡ï¼ˆå¦‚æœè·ç¦»è¶…è¿‡2æ ¼ï¼Œåˆ™ç§»åŠ¨2æ ¼è·ç¦»ï¼‰
         dashToTarget(target, 2);
 
-        // ¶ÔÄ¿±ê·¢Éäµ¯Ìå²¢Ôì³ÉÉËº¦
+        // å¯¹ç›®æ ‡å‘å°„å¼¹ä½“å¹¶é€ æˆä¼¤å®³
         auto enemyHero = dynamic_cast<Hero*>(target);
         if (enemyHero) {
             float damage = _currentPhysicalAttack * (damagePercent[levelIndex] / 100.0f);
@@ -918,24 +928,24 @@ void KaiSaHero::dashToTarget(Hero* target, float maxDashDistance) {
     Vec2 targetPosition = target->getPosition();
     Vec2 currentPosition = this->getPosition();
 
-    // ¼ÆËã·½ÏòºÍ¾àÀë
+    // è®¡ç®—æ–¹å‘å’Œè·ç¦»
     Vec2 direction = targetPosition - currentPosition;
     float distance = direction.length();
 
-    // Èç¹û¾àÀë³¬¹ı×î´ó³å´Ì¾àÀë£¬Ôò³å´Ì×î´ó¾àÀë
+    // å¦‚æœè·ç¦»è¶…è¿‡æœ€å¤§å†²åˆºè·ç¦»ï¼Œåˆ™å†²åˆºæœ€å¤§è·ç¦»
     if (distance > maxDashDistance) {
         direction.normalize();
         Vec2 dashPosition = currentPosition + direction * maxDashDistance;
         this->setPosition(dashPosition);
     }
     else {
-        // ·ñÔò£¬Ö±½Ó³å´ÌÖÁÄ¿±ê
+        // å¦åˆ™ï¼Œç›´æ¥å†²åˆºè‡³ç›®æ ‡
         this->setPosition(targetPosition);
     }
 }
 
 KennenHero::KennenHero() : Hero({ 650, 1170, 2106 }, { 40, 60, 90 }, 40, 40, 0.25,200, 30, 90, 0.6, Level::Level1) {
-    // ³õÊ¼»¯ Kennen ÌØÓĞµÄÊôĞÔ»ò×´Ì¬
+    // åˆå§‹åŒ– Kennen ç‰¹æœ‰çš„å±æ€§æˆ–çŠ¶æ€
     _hero_number = 10;
     _star = 1;
     _career = 3;
@@ -945,7 +955,7 @@ KennenHero::KennenHero() : Hero({ 650, 1170, 2106 }, { 40, 60, 90 }, 40, 40, 0.2
 
 KennenHero* KennenHero::create() {
     KennenHero* kennen = new (std::nothrow) KennenHero();
-    if (kennen && kennen->initWithFile("heroes/11.png")) { // ¼ÙÉèÓĞ kennen.png ÎÄ¼ş
+    if (kennen && kennen->initWithFile("heroes/11.png")) { // å‡è®¾æœ‰ kennen.png æ–‡ä»¶
         kennen->autorelease();
         return kennen;
     }
@@ -954,24 +964,24 @@ KennenHero* KennenHero::create() {
 }
 
 void KennenHero::castSkill() {
-    // ÊµÏÖ Kennen µÄ¼¼ÄÜÂß¼­£ºÕğ»÷ºÍÕğÉå
+    // å®ç° Kennen çš„æŠ€èƒ½é€»è¾‘ï¼šéœ‡å‡»å’Œéœ‡æ…‘
     CCLOG("Kennen casts Shock and Stun.");
     float magicDamage[3] = { 360, 540, 4000 };
-    int levelIndex = static_cast<int>(_level); // ½«Ã¶¾Ù×ª»»ÎªÕûÊıË÷Òı
+    int levelIndex = static_cast<int>(_level); // å°†æšä¸¾è½¬æ¢ä¸ºæ•´æ•°ç´¢å¼•
 
-    // Ñ¡Ôñµ±Ç°Ä¿±ê²¢¶ÔÆäÔì³ÉÉËº¦
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    // é€‰æ‹©å½“å‰ç›®æ ‡å¹¶å¯¹å…¶é€ æˆä¼¤å®³
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
         auto enemyHero = dynamic_cast<Hero*>(target);
         if (enemyHero) {
-            // ¶ÔÄ¿±êÔì³ÉÄ§·¨ÉËº¦
+            // å¯¹ç›®æ ‡é€ æˆé­”æ³•ä¼¤å®³
             enemyHero->receiveMagicDamage(magicDamage[levelIndex]);
         }
     }
 }
 
 KSanteHero::KSanteHero() : Hero({ 550, 990, 1782 }, { 50, 75, 113 }, 25, 25, 0.25, 60, 0, 40, 0.75, Level::Level1) {
-    // ³õÊ¼»¯ KSante ÌØÓĞµÄÊôĞÔ»ò×´Ì¬
+    // åˆå§‹åŒ– KSante ç‰¹æœ‰çš„å±æ€§æˆ–çŠ¶æ€
     _hero_number = 11;
     _star = 1;
     _career = 0;
@@ -981,7 +991,7 @@ KSanteHero::KSanteHero() : Hero({ 550, 990, 1782 }, { 50, 75, 113 }, 25, 25, 0.2
 
 KSanteHero* KSanteHero::create() {
     KSanteHero* ksante = new (std::nothrow) KSanteHero();
-    if (ksante && ksante->initWithFile("heroes/12.png")) { // ¼ÙÉèÓĞ ksante.png ÎÄ¼ş
+    if (ksante && ksante->initWithFile("heroes/12.png")) { // å‡è®¾æœ‰ ksante.png æ–‡ä»¶
         ksante->autorelease();
         return ksante;
     }
@@ -990,18 +1000,18 @@ KSanteHero* KSanteHero::create() {
 }
 
 void KSanteHero::castSkill() {
-    // ¼¼ÄÜ¿ªÊ¼£º½øÈë·ÀÓù×ËÌ¬
+    // æŠ€èƒ½å¼€å§‹ï¼šè¿›å…¥é˜²å¾¡å§¿æ€
     CCLOG("KSante enters a defensive stance.");
 
-    // ¸ù¾İµÈ¼¶ÉèÖÃ·ÀÓù×ËÌ¬µÄÉËº¦¼õÃâĞ§¹û
+    // æ ¹æ®ç­‰çº§è®¾ç½®é˜²å¾¡å§¿æ€çš„ä¼¤å®³å‡å…æ•ˆæœ
     float damageReduction = (_level == Level::Level1 || _level == Level::Level2) ? 0.50f : 0.55f;
 
     _armor *= (1 + damageReduction);
-    // ¼¼ÄÜ½áÊø£º¶Ôµ±Ç°Ä¿±êÔì³É´óÁ¿ÉËº¦
+    // æŠ€èƒ½ç»“æŸï¼šå¯¹å½“å‰ç›®æ ‡é€ æˆå¤§é‡ä¼¤å®³
     CCLOG("KSante strikes with a powerful blow.");
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
-        // ¶Ôµ±Ç°Ä¿±êÔì³É800%ÎïÀíÉËº¦
+        // å¯¹å½“å‰ç›®æ ‡é€ æˆ800%ç‰©ç†ä¼¤å®³
         auto enemyHero = dynamic_cast<Hero*>(target);
         if (enemyHero) {
             enemyHero->receiveDamage(_currentPhysicalAttack * 8.0f);
@@ -1011,7 +1021,7 @@ void KSanteHero::castSkill() {
 }
 LucianHero::LucianHero()
     : Hero({ 750, 1350, 2430 }, { 75, 113, 169 }, 30, 30, 0.25, 400, 50, 125, 0.9, Level::Level1) {
-    // ³õÊ¼»¯ Lucian ÌØÓĞµÄ×´Ì¬»òÆäËûÂß¼­
+    // åˆå§‹åŒ– Lucian ç‰¹æœ‰çš„çŠ¶æ€æˆ–å…¶ä»–é€»è¾‘
     _hero_number = 12;
     _star = 5;
     _career = 2;
@@ -1021,7 +1031,7 @@ LucianHero::LucianHero()
 
 LucianHero* LucianHero::create() {
     LucianHero* lucian = new (std::nothrow) LucianHero();
-    if (lucian && lucian->initWithFile("heroes/13.png")) { // ¼ÙÉèÓĞ lucian.png ÎÄ¼ş
+    if (lucian && lucian->initWithFile("heroes/13.png")) { // å‡è®¾æœ‰ lucian.png æ–‡ä»¶
         lucian->autorelease();
         return lucian;
     }
@@ -1030,25 +1040,25 @@ LucianHero* LucianHero::create() {
 }
 
 void LucianHero::castSkill() {
-    // ÊµÏÖ Lucian µÄ¼¼ÄÜÂß¼­£ºÅÃÒô
+    // å®ç° Lucian çš„æŠ€èƒ½é€»è¾‘ï¼šç¶éŸ³
     CCLOG("Lucian casts The Culling.");
 
-    // ¼ÆËã·¢ÉäµÄ×Óµ¯ÊıÁ¿
-    int bulletCount = 14 + static_cast<int>(_attackSpeed / 0.2); // Ã¿20%¶îÍâ¹¥ËÙÔö¼Ó1·¢×Óµ¯
+    // è®¡ç®—å‘å°„çš„å­å¼¹æ•°é‡
+    int bulletCount = 14 + static_cast<int>(_attackSpeed / 0.2); // æ¯20%é¢å¤–æ”»é€Ÿå¢åŠ 1å‘å­å¼¹
 
-    // ¼ÆËãÉËº¦Öµ
-    float damagePercent[3] = { 0.55, 0.55, 10.0 }; // °Ù·Ö±ÈÎïÀíÉËº¦
+    // è®¡ç®—ä¼¤å®³å€¼
+    float damagePercent[3] = { 0.55, 0.55, 10.0 }; // ç™¾åˆ†æ¯”ç‰©ç†ä¼¤å®³
     int levelIndex = static_cast<int>(_level);
-    Hero* target = getNextEnemyHero(); // »ñÈ¡×î½üµÄµĞ·½µ¥Î»
+    Hero* target = getNextEnemyHero(); // è·å–æœ€è¿‘çš„æ•Œæ–¹å•ä½
     if (target) {
         if (isInRange(target)) {
             auto enemyHero = dynamic_cast<Hero*>(target);
             if (enemyHero) {
-                // ¼ÆËãÔì³ÉµÄÉËº¦
-                float damage = _currentPhysicalAttack * damagePercent[levelIndex]; // ÕâÀï¼ò»¯ÁËÉËº¦¼ÆËã£¬Êµ¼Ê¿ÉÄÜ¸ü¸´ÔÓ
+                // è®¡ç®—é€ æˆçš„ä¼¤å®³
+                float damage = _currentPhysicalAttack * damagePercent[levelIndex]; // è¿™é‡Œç®€åŒ–äº†ä¼¤å®³è®¡ç®—ï¼Œå®é™…å¯èƒ½æ›´å¤æ‚
 
-                // Ó¦ÓÃÉËº¦µ½Ä¿±êÓ¢ĞÛ
-                enemyHero->receiveDamage(damage);// Èç¹ûÔÚ¹¥»÷·¶Î§ÄÚ£¬Ôò¹¥»÷
+                // åº”ç”¨ä¼¤å®³åˆ°ç›®æ ‡è‹±é›„
+                enemyHero->receiveDamage(damage);// å¦‚æœåœ¨æ”»å‡»èŒƒå›´å†…ï¼Œåˆ™æ”»å‡»
                 performRangedAttackAnimation(target);
             }
         }
